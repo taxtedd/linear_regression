@@ -250,10 +250,10 @@ int main() {
     scaler.transform(X_test);
 
     double lr = 0.1;
-    int iterations = 1000;
+    int iterations = 100;
     LinearRegression model(lr, iterations);
     
-    int log_freq = 50;
+    int log_freq = 5;
     model.fit(X_train, y_train, X_val, y_val, log_freq);
 
     auto test_preds = model.predict(X_test);
