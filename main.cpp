@@ -83,8 +83,8 @@ public:
                   << " | " << std::setw(10) << "Train R2";
         
         if (!X_val.empty()) {
-            std::cout << " | " << std::setw(10) << "Test MSE" 
-                      << " | " << std::setw(10) << "Test R2";
+            std::cout << " | " << std::setw(10) << "Val MSE" 
+                      << " | " << std::setw(10) << "Val R2";
         }
         std::cout << "\n----------------------------------------------------------------" << std::endl;
 
@@ -230,13 +230,13 @@ void generate_synthetic_data(size_t samples, std::vector<std::vector<double>>& X
 int main() {
     std::vector<std::vector<double>> X;
     std::vector<double> y;
-    n = 1000;
+    int n = 10000;
     generate_synthetic_data(n, X, y);
 
     std::vector<std::vector<double>> X_train, X_val, X_test;
     std::vector<double> y_train, y_val, y_test;
-    val_size = 0.1;
-    test_size = 0.2;
+    double val_size = 0.1;
+    double test_size = 0.2;
     train_val_test_split(X, y,
                      X_train, y_train,
                      X_val, y_val,
@@ -249,11 +249,11 @@ int main() {
     scaler.transform(X_val);
     scaler.transform(X_test);
 
-    lr = 0.1;
-    iterations = 500;
+    double lr = 0.1;
+    int iterations = 1000;
     LinearRegression model(lr, iterations);
     
-    log_freq = 50;
+    int log_freq = 50;
     model.fit(X_train, y_train, X_val, y_val, log_freq);
 
     auto test_preds = model.predict(X_test);
